@@ -13,9 +13,9 @@ Full feature list:
 - Resizable headers.
 - Specify minimum, maximum, and initial widths for table columns.
 - Various option formats are accepted: single value, array, and function.
-- Increase header widths via resize beyond apparent table width.
-- Synchronized scrolling of header and footer with the x-axis.
-- Limit minimum columns widths to apparent table size during resize.
+- Increase header widths during resize beyond apparent table width.
+- Synchronized scrolling of header and footer with the x-axis scrollbar.
+- Limit total minimum column widths to apparent table size during resize.
 - Resize function provided for dynamic and fluid layout.
 - Destroy completely restores the table to its initial state.
 
@@ -23,17 +23,17 @@ More demos and information: http://borgboyone.github.io/jquery-ui-table/
 
 Limitations
 -----------
-Tables with borders and/or padding are supported.  A border-spacing of 0 is highly recommended and columns must not have widths set via CSS for resizing to function properly.  Effective minimums should be provided in the configuration as column widths between the header and body will unsynchronize when either the header column pack size or the body column pack size is reached.
+Tables with borders and/or padding are supported.  A border-spacing of 0 is highly recommended and columns must not have widths set via CSS for resizing to function properly.  Effective minimums should be provided in the configuration as column widths between the header and body will unsynchronize when either the header column pack size or the body column pack size is reach.
 
 Examples
 --------
-If no options are provided, the table is given the ability for y-axis scrolling, but unless the height is changed, the scrollbar will not be present as width and height are taken from the table size as apparent in the document.
+If no options are provided, the table is given the ability for y-axis scrolling only, but unless the height is changed, the scrollbar will not be present as width and height are taken from the table size as apparent in the document.
 
 Simple y-axis scrolling:
 ```js
 $('#my-table').table({scrollable: ['y'], height: 300});
 ```
-Column headers can be resizable with x-axis scrolling and no y-axis scrolling with the minimum column widths set to table width:
+Column headers can be resizable with x-axis scrolling and no y-axis scrolling with the minimum total column widths limited to table width:
 ```js
 $('#my-table').table({scrollable: ['x'], columns: {resizable: true}, keepColumnsTableWidth: true});
 ```
