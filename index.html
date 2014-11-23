@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>jQuery-ui-table by borgboyone</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>jQuery-ui-table</h1>
+        <h2>Add x, y axis scrolling and resizable headers to any plain HTML table.</h2>
+        <a href="https://github.com/borgboyone/jquery-ui-table" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="jquery-ui-table" class="anchor" href="#jquery-ui-table" aria-hidden="true"><span class="octicon octicon-link"></span></a>jquery-ui-table</h1>
+
+<p>The jQuery UI table widget enables a host of features for plain tables in HTML documents.</p>
+
+<p>At a minimum, the widget provides the ever elusive, yet simple, y axis scrolling for tbody, allowing stationary header and footer.  Column widths are maintained between all table elements, even with the scrollbar present.  Column headers can be made resizable allowing users to adjust widths to their preference.  Complementing resizable headers, is x axis scrolling, which enables users to enlarge columns beyond the table width boundary.  The option to restrict the minimum column widths total to table width is also available.</p>
+
+<p>The minimum, maximum, and initial widths of column headers are configurable either statically or via passing a function as a parameter.  Column headers may also be made resizable independent of each other.</p>
+
+<p>Full feature list:</p>
+
+<ul>
+<li>X and Y axis scrolling with stationary header and footer.</li>
+<li>Resizable headers.</li>
+<li>Specify minimum, maximum, and initial widths for table columns.</li>
+<li>Various option formats are accepted: single value, array, and function.</li>
+<li>Increase header widths during resize beyond apparent table width.</li>
+<li>Synchronized scrolling of header and footer with the x-axis scrollbar.</li>
+<li>Limit total minimum column widths to apparent table size during resize.</li>
+<li>Resize function provided for dynamic and fluid layout.</li>
+<li>Destroy completely restores the table to its initial state.</li>
+</ul>
+
+<p>More demos and information: <a href="http://borgboyone.github.io/jquery-ui-table/">http://borgboyone.github.io/jquery-ui-table/</a></p>
+
+<h2>
+<a id="limitations" class="anchor" href="#limitations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limitations</h2>
+
+<p>Tables with borders and/or padding are supported.  A border-spacing of 0 is highly recommended and columns must not have widths set via CSS for resizing to function properly.  Effective minimums should be provided in the configuration as column widths between the header and body will unsynchronize when either the header column pack size or the body column pack size is reach.</p>
+
+<h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>If no options are provided, the table is given the ability for y-axis scrolling only, but unless the height is changed, the scrollbar will not be present as width and height are taken from the table size as apparent in the document.</p>
+
+<p>Simple y-axis scrolling:</p>
+
+<div class="highlight highlight-js"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).table({scrollable<span class="pl-k">:</span> [<span class="pl-s1"><span class="pl-pds">'</span>y<span class="pl-pds">'</span></span>], height<span class="pl-k">:</span> <span class="pl-c1">300</span>});</pre></div>
+
+<p>Column headers can be resizable with x-axis scrolling and no y-axis scrolling with the minimum total column widths limited to table width:</p>
+
+<div class="highlight highlight-js"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).table({scrollable<span class="pl-k">:</span> [<span class="pl-s1"><span class="pl-pds">'</span>x<span class="pl-pds">'</span></span>], columns<span class="pl-k">:</span> {resizable<span class="pl-k">:</span> <span class="pl-c1">true</span>}, keepColumnsTableWidth<span class="pl-k">:</span> <span class="pl-c1">true</span>});</pre></div>
+
+<p>Column header options can be set via various formats:</p>
+
+<div class="highlight highlight-js"><pre>$(<span class="pl-s1"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).table({
+     columns<span class="pl-k">:</span> {
+          resizable<span class="pl-k">:</span> <span class="pl-c1">true</span>,              <span class="pl-c">// all column headers are resizable</span>
+          minWidths<span class="pl-k">:</span> [<span class="pl-c1">40</span>, <span class="pl-c1">40</span>, <span class="pl-c1">40</span>, <span class="pl-c1">40</span>],  <span class="pl-c">// an array of integer values; the array length must match the number of table columns</span>
+          maxWidths<span class="pl-k">:</span> <span class="pl-c1">300</span>,               <span class="pl-c">// a single value can be specified which will be applied to all column headers that are resizable</span>
+          <span class="pl-en">initialWidths</span>: <span class="pl-st">function</span>() {   <span class="pl-c">// again, functions can provide for dynamic configuration</span>
+               <span class="pl-s">var</span> width <span class="pl-k">=</span> $(<span class="pl-s1"><span class="pl-pds">'</span>#my-table<span class="pl-pds">'</span></span>).<span class="pl-sc">width</span>();
+               <span class="pl-s">var</span> ps <span class="pl-k">=</span> [<span class="pl-c1">40</span>, <span class="pl-c1">15</span>, <span class="pl-c1">30</span>, <span class="pl-c1">15</span>];
+               <span class="pl-k">return</span> ps.map( <span class="pl-st">function</span>(<span class="pl-vpf">value</span>, <span class="pl-vpf">i</span>){ <span class="pl-k">return</span> <span class="pl-s3">Math</span>.<span class="pl-s3">floor</span>(width <span class="pl-k">*</span> value / <span class="pl-c1">100</span>); } );
+          },
+     }
+});</pre></div>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT License. Copyright 2014, Anthony Wells.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/borgboyone/jquery-ui-table/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/borgboyone/jquery-ui-table/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/borgboyone/jquery-ui-table"></a> is maintained by <a href="https://github.com/borgboyone">borgboyone</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
