@@ -26,14 +26,16 @@
     <![endif]-->
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="https://raw.githubusercontent.com/borgboyone/jquery-ui-table/master/src/jquery.ui.table.js"></script>
+	<script type="text/javascript" src="https://rawgit.com/borgboyone/jquery-ui-table/master/src/jquery.ui.table.js"></script>
 	<script type="text/javascript" src="javascripts/ElementQueries.js"></script>
 	<script type="text/javascript" src="javascripts/ResizeSensor.js"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			$('#my-table').clone().attr('id','').appendTo($('#simple_y')).wrap("<div>");
+			$('#simple_y').find("tbody > tr:even").addClass("alternate");
 			$('#simple_y table:first').table({height: 300, columns: {resizable: false, initialWidths: function() { var width = jQuery('#my-table').width(); var ps = [40, 15, 30, 15]; return ps.map(function(value, i){ return Math.round(width * value / 100); });}}});
 			$('#my-table').clone().attr('id','').appendTo($('#xy_resizable')).wrap("<div>");
+			$('#xy_resizable').find("tbody > tr:even").addClass("alternate");
 			$('#xy_resizable table:first').table({height: 300, scrollable: true, columns: {resizable: true, initialWidths: function() { var width = jQuery('#my-table').width(); var ps = [40, 15, 30, 15]; return ps.map(function(value, i){ return Math.round(width * value / 100); });}}});
 			new ResizeSensor($('#simple_y').find("table:first").parent().get(0), function() { var wrap = $('#simple_y').find("table:first").parent(); $('#simple_y').find("table:first").table("instance").resize(wrap.width(), null); });
 			new ResizeSensor($('#xy_resizable').find("table:first").parent().get(0), function() { var wrap = $('#xy_resizable').find("table:first").parent(); $('#xy_resizable').find("table:first").table("instance").resize(wrap.width(), null); });
@@ -98,7 +100,7 @@ Example coming soon!
 <p>Effective minimums should be provided in the configuration as column widths between the header and body will unsynchronize when either the header column pack size or the body column pack size is reach.</p>
 
 <h2><a id="issues" class="anchor" href="#issues" aria-hidden="true"><span class="octicon octicon-link"></span></a>Known Issues</h2>
-<p>When the table is resized to a smaller width while the minimum total column widths are constrained to table width with x-scrolling enabled, the column widths will scale to fit the new width instead of the x scrollbar appearing.  Also, the last column header width does not adjust appropriately to accomodate the scrollbar under certain circumstances.</p>
+<p>There are no known issues at this time.</p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
