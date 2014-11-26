@@ -68,14 +68,14 @@ var table = $.widget( "aw.table", {
 			// TODO: clean this up (might be better inside-out)
 			if (this.scrollable.x) {
 				if (total > this.innerSize.width) {
-					// mark setBodyWidths(total); FIIXME: must do, possibly a transient function
+					// setBodyWidths(total); done after table instantiation
 				} else if (total < this.innerSize.width) {
 					if (this.options.keepColumnsTableWidth) {
 						this.columns.initialWidths = this._scale(this.columns.initialWidths, this.innerSize.width, total);
 						// we could pass max on columns
 						total = this.innerSize.width;
 					} else {
-						// mark setBodyWidths(total); FIXME: verify this, may not be needed, fairly certain it is
+						// mark setBodyWidths(total); FIXME: verify this is needed
 					}
 				}
 			} else {
@@ -401,7 +401,7 @@ var table = $.widget( "aw.table", {
 				total += this.col_desc.widths[i];
 			}
 			if (this.scrollable.x) {
-				if ((total <= this.innerSize.width) && this.options.keepColumnsTableWidth) {
+				if (!this.hasScroll.x && this.options.keepColumnsTableWidth) {
 					this.col_desc.widths = this._scale(this.col_desc.widths, this.innerSize.width, total);
 					// may no longer conform to max Widths
 					if (this.hasScroll.x) {
@@ -421,7 +421,6 @@ var table = $.widget( "aw.table", {
 				if (!hadScroll_x && hasScroll_x) {
 					this._on( $table.find("> tbody").get(0), {"scroll": function(event) {
 						var offset = -1 * $(event.target).scrollLeft();
-						// TODO: verify: "this" is table()
 						this.element.find("> thead,> tfoot").find("> tr").css('left', offset + 'px');
 					}});
 					that._setBodyWidth(total);
@@ -479,9 +478,10 @@ var table = $.widget( "aw.table", {
 							// by clearing the width and going back to auto mode, the v scrollbar issue falls
 							// back to setColumnWidths
 							$table.find("> tbody tbody:first").css('width', '');
-							$table.find("> thead > tr,> tfoot > tr").width(that.innerSize.width + 'px');
+							$table.find("> thead > tr,> tfoot > tr").width(that.innerSize.width + 'px').css('left', '0px');
 
-							// TODO: check this with the latest version of jQuery UI (.get(0))
+							// Earlier versions of jQuery ui needed the jQuery wrapped element for _off
+							// We leave this as is for backwards compatibility (-.get(0))
 							that._off($table.find("> tbody"), 'scroll');
 							that.hasScroll.x = false;
 						}
@@ -494,7 +494,7 @@ var table = $.widget( "aw.table", {
 						if (!that.hasScroll.x) {
 							that._on( $table.find("> tbody").get(0), {"scroll": function(event) {
 								var offset = -1 * $(event.target).scrollLeft();// + parseFloat($(that.element).css('paddingLeft'));
-								$table.find("> thead,> tfoot").find("> tr").css('left', offset + 'px');
+								$table.find("> thead > tr,> tfoot > tr").css('left', offset + 'px');
 							}});
 							that.hasScroll.x = true;
 						}

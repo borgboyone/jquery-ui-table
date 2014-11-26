@@ -18,14 +18,16 @@
 	</style>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="../src/jquery.ui.table.min.js"></script>
+	<script type="text/javascript" src="../src/jquery.ui.table.js"></script>
 	<script type="text/javascript" src="ElementQueries.js"></script>
 	<script type="text/javascript" src="ResizeSensor.js"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			$('#my-table').clone().attr('id','').appendTo($('#simple_y')).wrap("<div>");
+			$('#simple_y').find("tbody > tr:even").addClass("alternate");
 			$('#simple_y table:first').table({height: 300, columns: {resizable: false, initialWidths: function() { var width = jQuery('#my-table').width(); var ps = [40, 15, 30, 15]; return ps.map(function(value, i){ return Math.round(width * value / 100); });}}});
 			$('#my-table').clone().attr('id','').appendTo($('#xy_resizable')).wrap("<div>");
+			$('#xy_resizable').find("tbody > tr:even").addClass("alternate");
 			$('#xy_resizable table:first').table({height: 300, scrollable: true, columns: {resizable: true, initialWidths: function() { var width = jQuery('#my-table').width(); var ps = [40, 15, 30, 15]; return ps.map(function(value, i){ return Math.round(width * value / 100); });}}});
 			new ResizeSensor($('#simple_y').find("table:first").parent().get(0), function() { var wrap = $('#simple_y').find("table:first").parent(); $('#simple_y').find("table:first").table("instance").resize(wrap.width(), null); });
 			new ResizeSensor($('#xy_resizable').find("table:first").parent().get(0), function() { var wrap = $('#xy_resizable').find("table:first").parent(); $('#xy_resizable').find("table:first").table("instance").resize(wrap.width(), null); });
